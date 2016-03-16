@@ -8,9 +8,17 @@ data=importdata('IDENTIFICATION_PRESSURE_Save_05.txt');
 u=data(:,1);      % first column is PRBS input signal
 y=data(:,2);      % second column is output signal
 
+% cutting data
+% u=u(75:end-50);  % cutting out bad data
+% y=y(75:end-50);
+
+figure; % plot data
+subplot(2,1,1); plot(u)
+subplot(2,1,2); plot(y)
+
 % Parameters
 
-N=size(data,1);    % number of samples
+N=size(u,1);    % number of samples
 Be=0.02;           % frequency resolution  (Hz)
 M1=N;              % Sample interval length  M=N/p for p=1
 M2=floor(N/4);     % Sample interval length for p=4 (integers) 
@@ -41,7 +49,7 @@ Magnitude_M2=sqrt(real(Suy_M2).^2+imag(Suy_M2).^2)./abs(real(Suu_M2));
 Phase_M2=360/(2*pi).*(atan(imag(Suy_M2)./real(Suy_M2)));
 f_M2=2*pi*Be*linspace(0,N-1,length(Suu_M2));
 
-figure(1);
+figure;
 subplot(2,1,1)
 semilogx(f_M1,20*log10(Magnitude_M1),'b',f_M2,20*log10(Magnitude_M2),'r');
 xlabel('Frequency (rad/s)')
