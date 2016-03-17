@@ -11,7 +11,7 @@ R=xcorr(u,y,'unbiased');
 
 % Take middle part of correlation vector
 
-R_cut=R(round(M/2):length(R)-round(M/2),1);
+R_cut=R(round(length(R)/2-M/2):round(length(R)/2+M/2),1);
 
 % Window with Blackman function
 
@@ -20,7 +20,6 @@ R_w=transpose(R_cut.*window);
 
 % Swapping
 
-l=length(R_w);
 R_s=[R_w(M:end) R_w(1:M-1)];
 
 

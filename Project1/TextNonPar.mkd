@@ -1,0 +1,21 @@
+## Non-parametric
+The designed PRBS signals are now used as input for the real system and gives rise to experimental values for the pressure. The in- and output values are then used for the identification of the system. This section will elaborate the nonparametric identification and the correlation method ,in specific. 
+
+### Preparation of the data
+
+Firstly, a preliminary signal processing step is performed where the transient part of the in- and output signals is removed along with the final samples that represents the **termination of the experiment**. The data is subsequently processed by taking out the mean values of the input and output signal as frequency domain analysis is only valid for zero-mean signals.
+
+### Calculation of the PSD by means of correlation functions
+
+With the experimental data in the right format it is possible to perform the non parametric identification by means of the correlation function approach. With a **400** samples left for identification, the maximum attainable frequency resolution, Be (Hz) is equal to p/N*Ts.
+For p=1, Be is **...**  
+For p=4, Be is **...**  
+
+First, the correlation functions Ruu(tau), Ruy(tau) are calculated by using the 'xcorr' function in MATLAB. As can be seen in Figure x the main frequency bandwith of the of the correlation functions by minor peaks. These leakage effects are countered by halving the **maximum lag** and the windowing the resulting correlation function with a blackman window (**the narrowest of windows**). Figure x represents the correlation functions before and after windowing with the blackman filter.
+
+In the next step, the fast fourier transform (fft) is **performed** on the correlation function. However, the fft in MATLAB is defined for frequencies going from 0 to infinite so it is necessary to "paste" the correlation values for negative lags after the positive lags. The "swapped" correlation function are subsequently ** fast fourier transformed** to yield the power density spectra.
+
+stukje over formules voor de bode plots
+
+stukje over M=400 en M=50;
+ 

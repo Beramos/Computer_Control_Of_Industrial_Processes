@@ -13,12 +13,6 @@ y=data(:,2);      % second column is output signal
  u=u(75:end-25);  % cutting transient response + end of experiment
  y=y(75:end-25);
  
- uValidation=u(201:end); % 200 samples for validation
- yValidation=y(201:end);
-
- u=u(1:200);             % 200 samples for identification
- y=y(1:200);
- 
 figure; % plot data
 subplot(2,1,1); plot(u)
 subplot(2,1,2); plot(y)
@@ -36,18 +30,8 @@ Be2=1/M2/Ts;           % frequency resolution for p=4  (Hz)
 Suu_M1=spectra(u,u,M1);
 Suy_M1=spectra(u,y,M1);
 
-% initialisation of Suu and Suy + calculation of the first M-bin
-Suu_M2=spectra(u(1:M2),u(1:M2),M2); 
-Suy_M2=spectra(u(1:M2),y(1:M2),M2);
-
-for i=2:4
-sample_indices=1+(i-1)*M2:i*M2;
-Suu_M2=Suu_M2+spectra(u(sample_indices),u(sample_indices),M2);  
-Suy_M2=Suy_M2+spectra(u(sample_indices),y(sample_indices),M2);
-end
-
-Suu_M2=Suu_M2/4;                       % averaging of the spectra
-Suy_M2=Suy_M2/4;                       % averaging of the spectra
+Suu_M2=spectra(u,u,M2); 
+Suy_M2=spectra(u,y,M2);
 
 Magnitude_M1=sqrt(real(Suy_M1).^2+imag(Suy_M1).^2)./abs(real(Suu_M1));
 Phase_M1=360/(2*pi).*unwrap(atan(imag(Suy_M1)./real(Suy_M1)));
@@ -62,11 +46,11 @@ subplot(2,1,1)
 semilogx(f_M1,20*log10(Magnitude_M1),'b',f_M2,20*log10(Magnitude_M2),'r');
 xlabel('Frequency (rad/s)')
 ylabel('Magnitude (dB)')
-legend('M=500','M=125')
+legend('M=400','M=100')
 
 subplot(2,1,2)
 semilogx(f_M1,Phase_M1,'b',f_M2,Phase_M2,'r')
 xlabel('Frequency (rad/s)')
 ylabel('Phase (degrees)')
-legend('M=500','M=125')
+legend('M=400','M=100')
 
