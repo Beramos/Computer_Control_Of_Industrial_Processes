@@ -1,7 +1,8 @@
 % Matlab-script for non-parametric identification using correlation
 % functions
 
-clear all; clc; close all;
+% clear all;
+clc; close all;
 
 % Importing data
 data=importdata('IDENTIFICATION_PRESSURE_Save_05.txt');
