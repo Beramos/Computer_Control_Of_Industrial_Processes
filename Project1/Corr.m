@@ -9,19 +9,26 @@ u=data(:,1);      % first column is PRBS input signal
 y=data(:,2);      % second column is output signal
 
 % cutting data
-% u=u(75:end-50);  % cutting out bad data
-% y=y(75:end-50);
+ u=u(75:end-25);  % cutting transient response + end of experiment
+ y=y(75:end-25);
+ 
+ uValidation=u(201:end); % 200 samples for validation
+ yValidation=y(201:end);
 
+ u=u(1:200);             % 200 samples for identification
+ y=y(1:200);
+ 
 figure; % plot data
 subplot(2,1,1); plot(u)
 subplot(2,1,2); plot(y)
 
 % Parameters
-
+Ts=0.1;              % sampling time
 N=size(u,1);    % number of samples
-Be=0.02;           % frequency resolution  (Hz)
 M1=N;              % Sample interval length  M=N/p for p=1
 M2=floor(N/4);     % Sample interval length for p=4 (integers) 
+Be1=1/M1/Ts;           % frequency resolution for p=1  (Hz)
+Be2=1/M2/Ts;           % frequency resolution for p=4  (Hz)
 
 % Bodeplot
 
@@ -42,12 +49,12 @@ Suu_M2=Suu_M2/4;                       % averaging of the spectra
 Suy_M2=Suy_M2/4;                       % averaging of the spectra
 
 Magnitude_M1=sqrt(real(Suy_M1).^2+imag(Suy_M1).^2)./abs(real(Suu_M1));
-Phase_M1=360/(2*pi).*(atan(imag(Suy_M1)./real(Suy_M1)));
-f_M1=2*pi*Be*linspace(0,N-1,length(Suu_M1));
+Phase_M1=360/(2*pi).*unwrap(atan(imag(Suy_M1)./real(Suy_M1)));
+f_M1=2*pi*Be1*linspace(0,M1-1,length(Suu_M1));
 
 Magnitude_M2=sqrt(real(Suy_M2).^2+imag(Suy_M2).^2)./abs(real(Suu_M2));
-Phase_M2=360/(2*pi).*(atan(imag(Suy_M2)./real(Suy_M2)));
-f_M2=2*pi*Be*linspace(0,N-1,length(Suu_M2));
+Phase_M2=360/(2*pi).*unwrap(atan(imag(Suy_M2)./real(Suy_M2)));
+f_M2=2*pi*Be2*linspace(0,M2-1,length(Suu_M2));
 
 figure;
 subplot(2,1,1)

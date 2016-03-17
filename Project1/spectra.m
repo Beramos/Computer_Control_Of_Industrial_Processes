@@ -7,7 +7,7 @@ u=A-mean(A);
 y=B-mean(B);
 
 % calculate correlation using xcorr
-R=xcorr(u,y,M,'unbiased');  
+R=xcorr(u,y,'unbiased');  
 
 % Take middle part of correlation vector
 
