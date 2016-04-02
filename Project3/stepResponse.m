@@ -14,7 +14,7 @@ sim('stepResponseModel')
 figure; plot(t,y1,t,y2)
 legend('y1','y2')
 xlabel('time [s]')
-ylabel('tank level [cm]')
+ylabel('liquid height [cm]')
 
 % [0;1] step response
 u1_fin=0;
@@ -25,4 +25,4 @@ sim('stepResponseModel')
 figure; plot(t,y1,t,y2)
 legend('y1','y2')
 xlabel('time [s]')
-ylabel('tank level [cm]')
+ylabel('liquid height [cm]')
